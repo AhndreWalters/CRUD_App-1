@@ -7,10 +7,19 @@ define('DB_PORT', 12272);
 
 $link = mysqli_init();
 
-// set SSL (replace with your actual certificate paths from Aiven)
-mysqli_ssl_set($link, NULL, NULL, __DIR__ . '/ca.pem', NULL, NULL);
+// set SSL with the correct certificate path
+mysqli_ssl_set($link, NULL, NULL, __DIR__ . '/certs/ca.pem', NULL, NULL);
 
-if (!mysqli_real_connect($link, DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME, DB_PORT, NULL, MYSQLI_CLIENT_SSL)) {
+if (!mysqli_real_connect(
+    $link,
+    DB_SERVER,
+    DB_USERNAME,
+    DB_PASSWORD,
+    DB_NAME,
+    DB_PORT,
+    NULL,
+    MYSQLI_CLIENT_SSL
+)) {
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 ?>
